@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 import os
 import json
 
@@ -41,7 +42,7 @@ def crawel(kata, lang):
 
     code, kyu, name, sid = get("code"), get("kyu"), get('name'), get('sid')
     kyu = kyu.replace(' ', '')
-    name = '-'.join(name.lower().split(' '))
+    name = '-'.join(name.lower().split(' ')).replace('.', '-')
     ext = exts[lang]
 
     # filename = f"{kyu}.{name}.{sid}.{ext}"
