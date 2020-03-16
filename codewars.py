@@ -28,10 +28,14 @@ xpath = {
     "sid": '//ul[@id="solutions_list"]/li/@id',
 }
 
-@click.command()
-@click.option('--kata', help="the kata id")
-@click.option('--lang', help="the language you used", default="javascript")
-def crawel(kata, lang):
+@click.group()
+def cli():
+    pass
+
+@cli.command('solution')
+@click.option('-l', '--lang', help="the language you used", default="javascript")
+@click.argument('kata')
+def solution(kata, lang):
     resp = req.get(url%(kata, lang), cookies = cookies, headers = headers)
     tree = etree.HTML(resp.text)
 
@@ -50,6 +54,7 @@ def crawel(kata, lang):
     # filename = f"{kyu}.{slug}.{sid}.{ext}"
     filename = f"{kyu}.{slug}.{ext}"
     open(filename, 'w').write(code)
-    print(filename, 'saved.')
+    click.echo(f'`{filename}` has been saved.')
 
-crawel()
+if __name__ == '__main__':
+    cli()
