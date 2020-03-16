@@ -12,7 +12,7 @@ sudo ln -s /this/repo/path/codewars.py /usr/bin/codewars
 
 ### Configuration
 
-`~/.config/codewars/cookies.json`: to store your codewars session.
+`~/.config/codewars/cookies.json`: to store your codewars session.  
 `~/.config/codewars/headers.json`: to store your user access key.
 
 
