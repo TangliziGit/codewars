@@ -1,4 +1,5 @@
 # Codewars
+<a href="https://www.codewars.com/users/TangliziGit"><img style="float: right" width="250px" src="https://www.codewars.com/users/TangliziGit/badges/large"></a>
 
 To store my solutions to the kata of codewars, and a simple codewars client.
 
