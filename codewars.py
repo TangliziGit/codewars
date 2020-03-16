@@ -6,13 +6,12 @@ import click
 import requests as req
 from lxml import etree
 
-url = "https://www.codewars.com/kata/%s/solutions/%s/me/best_practice"
 home = os.path.expanduser('~')
 cookies = json.loads(open(os.path.join(home, '.config/codewars/cookies.json'), 'r').read())
-headers = {
-    "User-Agent": "User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:73.0) Gecko/20100101 Firefox/73.0",
-    "Host": "www.codewars.com"
-}
+headers = json.loads(open(os.path.join(home, '.config/codewars/headers.json'), 'r').read())
+
+url = "https://www.codewars.com/kata/%s/solutions/%s/me/best_practice"
+slug_api = "https://www.codewars.com/api/v1/code-challenges/%s"
 
 exts = {
     "javascript": "js",
@@ -36,18 +35,21 @@ def crawel(kata, lang):
     resp = req.get(url%(kata, lang), cookies = cookies, headers = headers)
     tree = etree.HTML(resp.text)
 
+    def getSlug(kata):
+        resp = req.get(slug_api%kata, headers = headers)
+        return json.loads(resp.text)['slug']
+
     def get(x):
         return tree.xpath(xpath[x])[0]
 
 
-    code, kyu, name, sid = get("code"), get("kyu"), get('name'), get('sid')
+    code, kyu, slug, sid = get("code"), get("kyu"), getSlug(kata), get('sid')
     kyu = kyu.replace(' ', '')
-    name = '-'.join(name.lower().split(' ')).replace('.', '-')
-    ext = exts[lang]
+    ext = exts.get(lang, lang)
 
-    # filename = f"{kyu}.{name}.{sid}.{ext}"
-    filename = f"{kyu}.{name}.{ext}"
-    print(filename, 'saved.')
+    # filename = f"{kyu}.{slug}.{sid}.{ext}"
+    filename = f"{kyu}.{slug}.{ext}"
     open(filename, 'w').write(code)
+    print(filename, 'saved.')
 
 crawel()
