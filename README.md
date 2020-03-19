@@ -25,6 +25,6 @@ Only download your solution of a kata using the kata id.
 
 1. Download your solution by kata id:  
     ```bash
-    $ codewars solution -l javascript 541c8630095125aba6000c00                                 -- INSERT --
+    $ codewars solution -l javascript 541c8630095125aba6000c00
     `6kyu.sum-of-digits-slash-digital-root.js` has been saved.
     ```
