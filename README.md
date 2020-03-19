@@ -21,3 +21,10 @@ sudo ln -s /this/repo/path/codewars.py /usr/bin/codewars
 
 Only download your solution of a kata using the kata id.
 
+### Usage
+
+1. Download your solution by kata id:  
+    ```bash
+    $ codewars solution -l javascript 541c8630095125aba6000c00                                 -- INSERT --
+    `6kyu.sum-of-digits-slash-digital-root.js` has been saved.
+    ```
