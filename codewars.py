@@ -36,10 +36,12 @@ def cli():
 @click.option('-l', '--lang', help="the language you used", default="javascript")
 @click.argument('kata')
 def solution(kata, lang):
+    print('get solution page...')
     resp = req.get(url%(kata, lang), cookies = cookies, headers = headers)
     tree = etree.HTML(resp.text)
 
     def getSlug(kata):
+        print('get kata slug...')
         resp = req.get(slug_api%kata, headers = headers)
         return json.loads(resp.text)['slug']
 
